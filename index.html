@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>☕ Cozy Cafe Finder - Find Your Perfect Cuppa!</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header" role="banner">
+        <div class="logo" aria-label="Cozy Cafe Finder">Cozy Cafes</div>
+        
+        <div class="search-container">
+            <input 
+                type="text" 
+                class="search-input" 
+                placeholder="Find your perfect cuppa... ☕"
+                aria-label="Search for cafes"
+                id="searchInput"
+            >
+            <button class="voice-btn" aria-label="Voice search" id="voiceBtn" title="Voice Search 🎤">
+                <i class="fas fa-microphone"></i>
+            </button>
+            <button class="search-btn" aria-label="Search" id="searchBtn" title="Search 🔍">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+
+        <div class="header-controls">
+            <button class="control-btn" id="toggleSidebar" aria-label="Toggle sidebar">
+                <i class="fas fa-sliders-h"></i>
+                <span>Filters</span>
+            </button>
+            <button class="control-btn" id="themeToggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+                <span>Theme</span>
+            </button>
+            <button class="control-btn" id="locationBtn" aria-label="Get my location">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Location</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar" role="complementary" aria-label="Filters and results">
+            <div class="filters">
+                <div class="filter-title">🎯 Find Your Perfect Spot</div>
+                
+                <div class="filter-group">
+                    <label for="ratingFilter">⭐ Minimum Rating</label>
+                    <select class="filter-select" id="ratingFilter">
+                        <option value="0">Any Rating ⭐</option>
+                        <option value="3.5">3.5+ Stars ⭐⭐⭐</option>
+                        <option value="4.0">4.0+ Stars ⭐⭐⭐⭐</option>
+                        <option value="4.5">4.5+ Stars ⭐⭐⭐⭐⭐</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="sortBy">🔄 Sort By</label>
+                    <select class="filter-select" id="sortBy">
+                        <option value="distance">📍 Distance</option>
+                        <option value="rating">⭐ Rating</option>
+                        <option value="name">📝 Name</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="radiusFilter">📏 Search Radius: <span id="radiusValue">2 km</span></label>
+                    <input type="range" class="filter-input" id="radiusFilter" min="1" max="10" value="2">
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="openNow" class="filter-checkbox">
+                    <label for="openNow">🕐 Open Now Only</label>
+                </div>
+            </div>
+
+            <div class="results-header">
+                <span>☕ Nearby Cafes</span>
+                <span class="results-count" id="resultsCount">Loading...</span>
+            </div>
+
+            <div class="cafe-list" id="cafeList" role="list">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <div class="loading-text">Finding the coziest cafes near you... ☕✨</div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="map-container" role="main" aria-label="Interactive map">
+            <div id="map"></div>
+            
+            <div class="map-controls">
+                <button class="map-control-btn" id="myLocationBtn" title="Go to my location 📍" aria-label="Center map on my location">
+                    <i class="fas fa-crosshairs"></i>
+                </button>
+                <button class="map-control-btn" id="favoritesBtn" title="Show favorites 💖" aria-label="Show favorite cafes">
+                    <i class="fas fa-heart"></i>
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <div id="toast" class="toast" role="alert" aria-live="polite"></div>
+
+    <div id="debugInfo" class="debug-info"></div>
+
+    <script src="script.js"></script>
+
+    <script async defer 
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiwLRxtEsGNyqFV1l5D5IFxgwOxhWoSc0&libraries=places&callback=initMap"
+            onerror="showToast('❌ Failed to load Google Maps. Please check your internet connection.', 'error')">
+    </script>
+</body>
+</html>
+
